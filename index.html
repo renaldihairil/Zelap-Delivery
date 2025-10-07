@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ZELAP - Cepat, Tepat & Amanah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="nameModal" class="name-modal-overlay">
+        <div class="name-modal">
+            <img src="https://i.imghippo.com/files/To6529pE.png" alt="Welcome" class="modal-image" onerror="this.style.display='none';">
+            <h2 class="modal-title">Selamat Datang! 👋</h2>
+            <p class="modal-subtitle">Dengan kaka siapa nih? Dan kaka tinggal di mana? Biar kami bisa panggil nama kaka dengan benar dan tampilkan toko terdekat 😊<br><small style="color: #999; font-size: 0.85em;">*Data akan tersimpan selama 24 jam</small></p>
+            <div class="input-group">
+                <input type="text" id="userName" placeholder="Tulis nama kaka di sini..." required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="userAddress" placeholder="Contoh: Seruni mumbul, Kec. Pringgabaya" required>
+            </div>
+            <button class="btn-primary" onclick="saveName()">Konfirmasi</button>
+        </div>
+    </div>
+    <div id="pwaInstallNotification" class="pwa-install-notification" style="display: none;">
+        <div class="pwa-install-modal">
+            <div class="pwa-install-icon"> 📱 </div>
+            <h2 class="pwa-install-title">Download ZELAP DELIVERY</h2>
+            <p class="pwa-install-subtitle"> 🚀 <strong>Akses Lebih Cepat & Mudah!</strong><br> Download aplikasi ZELAP DELIVERY untuk pengalaman berbelanja yang lebih nyaman dan praktis! </p>
+            <div class="pwa-install-buttons">
+                <button class="pwa-dismiss-btn" onclick="dismissPWAInstall()"> Nanti Saja </button>
+                <button class="pwa-install-btn" onclick="installPWA()" id="pwaInstallBtn"> <span>📲</span> <span>Download Sekarang</span> </button>
+            </div>
+            <div id="pwaInstructions" class="pwa-device-instructions">
+                <div class="pwa-instructions-title">
+                    <span id="instructionIcon">📱</span>
+                    <span id="instructionTitle">Cara Install di Perangkat Anda</span>
+                </div>
+                <ol class="pwa-instructions-steps" id="instructionSteps">
+                    </ol>
+            </div>
+        </div>
+    </div>
+    <div id="mainApp" class="main-app">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">ZELAP DELIVERY</div>
+                </div>
+                <div class="user-location-display" id="userLocationHeader"> 📍 Lombok Timur </div>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="greeting-section">
+                <div class="greeting" id="greeting">Hallo User, Malam ini mau makan apa? 😍</div>
+                <div class="location">
+                    <div class="time-box">
+                        <div class="time-display" id="userLocation">🕛 Loading...</div>
+                    </div>
+                </div>
+            </div>
+            <section class="section">
+                <div class="banner-slider">
+                    <div class="banner-container" id="bannerContainer">
+                        <div class="banner-slide active">
+                            <div class="banner-content">
+                                <h2>🎉 Promo Spesial Hari Ini!</h2>
+                                <p>Diskon hingga 50% untuk semua menu favorit kamu</p>
+                                <span class="promo-code">Kode: ZELAP50</span>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <div class="banner-content">
+                                <h2>🚚 Gratis Ongkir!</h2>
+                                <p>Untuk pembelian minimal Rp 75.000 di area Lombok</p>
+                                <span class="promo-code">Kode: GRATISONGKIR</span>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <div class="banner-content">
+                                <h2>⚡ Flash Sale 12.12</h2>
+                                <p>Beli 2 gratis 1 untuk semua minuman segar</p>
+                                <span class="promo-code">Berlaku sampai 23:59</span>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <div class="banner-content">
+                                <h2>🍜 Menu Baru!</h2>
+                                <p>Coba Mie Ayam Spesial dan Bakso Jumbo terbaru kami</p>
+                                <span class="promo-code">Hanya Rp 18.000</span>
+                            </div>
+                        </div>
+                        <div class="banner-slide">
+                            <div class="banner-content">
+                                <h2>💳 Cashback 20%</h2>
+                                <p>Untuk pembayaran menggunakan e-wallet</p>
+                                <span class="promo-code">Max cashback Rp 25.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-dots">
+                        <span class="dot active" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                        <span class="dot" onclick="currentSlide(4)"></span>
+                        <span class="dot" onclick="currentSlide(5)"></span>
+                    </div>
+                    <button class="banner-nav prev" onclick="changeSlide(-1)">❮</button>
+                    <button class="banner-nav next" onclick="changeSlide(1)">❯</button>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Dekat Saya</h2>
+                    <a href="#" class="view-more" onclick="showDetailPage('nearby')">Lihat Lainnya</a>
+                </div>
+                <div class="cards-container" id="nearbyCards">
+                    </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Best Seller Minggu Ini</h2>
+                    <a href="#" class="view-more" onclick="showDetailPage('bestseller')">Lihat Lainnya</a>
+                </div>
+                <div class="cards-container" id="bestSellerCards">
+                    </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Promo Bulan Ini</h2>
+                    <a href="#" class="view-more" onclick="showDetailPage('promo')">Lihat Lainnya</a>
+                </div>
+                <div class="cards-container" id="promoCards">
+                    </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Lainnya</h2>
+                </div>
+                <div class="lainnya-grid" id="lainnyaGrid">
+                    </div>
+                <div class="lainnya-pagination" id="lainnyaPagination">
+                    </div>
+            </section>
+        </main>
+        <div class="cart-icon" onclick="openCart()">
+            <svg viewBox="0 0 24 24">
+                <path d="M7 18C5.9 18 5 18.9 5 20S5.9 22 7 22 9 21.1 9 20 8.1 18 7 18ZM1 2V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.28 15 7.17 14.89 7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L20.88 5H5.21L4.27 3H1ZM17 18C15.9 18 15 18.9 15 20S15.9 22 17 22 19 21.1 19 20 18.1 18 17 18Z"/>
+            </svg>
+            <div class="cart-badge" id="cartBadge">0</div>
+        </div>
+    </div>
+    <div id="nearbyDetailPage" class="detail-page">
+        <header class="detail-header">
+            <div class="detail-header-content">
+                <button class="back-btn" onclick="hideDetailPage()">← Kembali</button>
+                <h1 class="detail-title">Produk Dekat Saya</h1>
+                <button class="store-view-btn" onclick="showStoreFromDetail()" style="display: none;"> 🏪 Lihat Toko </button>
+            </div>
+        </header>
+        <main class="detail-main-content">
+            <div class="detail-controls">
+                <input type="text" placeholder="Cari produk di sini..." class="detail-search-bar" oninput="searchProducts(this.value)">
+                <select class="detail-category-dropdown" onchange="filterByCategory(this.value)">
+                    <option value="Semua Kategori">Semua Kategori</option>
+                    <option value="Makanan Berat">Makanan Berat</option>
+                    <option value="Minuman Segar">Minuman Segar</option>
+                    <option value="Jajanan">Jajanan</option>
+                    <option value="Snack">Snack</option>
+                </select>
+                <button class="detail-filter-reset-btn" onclick="resetFilters()">Reset Filter</button>
+            </div>
+            <div class="detail-grid" id="nearbyProductsGrid">
+                </div>
+            <div class="detail-pagination" id="nearbyPagination">
+                </div>
+        </main>
+    </div>
+    <div id="bestsellerDetailPage" class="detail-page">
+        <header class="detail-header">
+            <div class="detail-header-content">
+                <button class="back-btn" onclick="hideDetailPage()">← Kembali</button>
+                <h1 class="detail-title">Best Seller Minggu Ini</h1>
+                <button class="store-view-btn" onclick="showStoreFromDetail()" style="display: none;"> 🏪 Lihat Toko </button>
+            </div>
+        </header>
+        <main class="detail-main-content">
+            <div class="detail-controls">
+                <input type="text" placeholder="Cari produk di sini..." class="detail-search-bar" oninput="searchProducts(this.value)">
+                <select class="detail-category-dropdown" onchange="filterByCategory(this.value)">
+                    <option value="Semua Kategori">Semua Kategori</option>
+                    <option value="Makanan Berat">Makanan Berat</option>
+                    <option value="Minuman Segar">Minuman Segar</option>
+                    <option value="Jajanan">Jajanan</option>
+                    <option value="Snack">Snack</option>
+                </select>
+                <button class="detail-filter-reset-btn" onclick="resetFilters()">Reset Filter</button>
+            </div>
+            <div class="detail-grid" id="bestsellerProductsGrid">
+                </div>
+            <div class="detail-pagination" id="bestsellerPagination">
+                </div>
+        </main>
+    </div>
+    <div id="promoDetailPage" class="detail-page">
+        <header class="detail-header">
+            <div class="detail-header-content">
+                <button class="back-btn" onclick="hideDetailPage()">← Kembali</button>
+                <h1 class="detail-title">Promo Bulan Ini</h1>
+                <button class="store-view-btn" onclick="showStoreFromDetail()" style="display: none;"> 🏪 Lihat Toko </button>
+            </div>
+        </header>
+        <main class="detail-main-content">
+            <div class="detail-controls">
+                <input type="text" placeholder="Cari produk di sini..." class="detail-search-bar" oninput="searchProducts(this.value)">
+                <select class="detail-category-dropdown" onchange="filterByCategory(this.value)">
+                    <option value="Semua Kategori">Semua Kategori</option>
+                    <option value="Makanan Berat">Makanan Berat</option>
+                    <option value="Minuman Segar">Minuman Segar</option>
+                    <option value="Jajanan">Jajanan</option>
+                    <option value="Snack">Snack</option>
+                </select>
+                <button class="detail-filter-reset-btn" onclick="resetFilters()">Reset Filter</button>
+            </div>
+            <div class="detail-grid" id="promoProductsGrid">
+                </div>
+            <div class="detail-pagination" id="promoPagination">
+                </div>
+        </main>
+    </div>
+    <div id="productDetailModal" class="product-detail-modal-overlay">
+        <div class="product-detail-modal">
+            <div class="product-detail-header">
+                <button class="modal-close-btn" onclick="closeProductDetail()">×</button>
+            </div>
+            <div class="product-detail-body">
+                <div class="detail-page-container">
+                    <div class="product-detail-content">
+                        <div class="product-image-slider" id="productImageSlider">
+                            <div class="product-slide active" id="slide1"> Slide 1 </div>
+                            <div class="product-slide" id="slide2"> Slide 2 </div>
+                            <div class="product-slide" id="slide3"> Slide 3 </div>
+                            <div class="product-dots" id="productDots">
+                                <span class="product-dot active" onclick="currentProductSlide(1)"></span>
+                                <span class="product-dot" onclick="currentProductSlide(2)"></span>
+                                <span class="product-dot" onclick="currentProductSlide(3)"></span>
+                            </div>
+                            <button class="product-nav prev" onclick="changeProductSlide(-1)">❮</button>
+                            <button class="product-nav next" onclick="changeProductSlide(1)">❯</button>
+                        </div>
+                        <div class="product-info-section">
+                            <h2 class="product-detail-title" id="detailProductName">Nama Produk</h2>
+                            <div class="product-detail-store" id="detailProductStore">Dari Toko: Nama Toko</div>
+                            <div class="product-detail-rating" id="detailProductRating">⭐ 0.0</div>
+                            <div class="product-detail-price" id="detailProductPrice">Rp 0</div>
+                            <div class="product-detail-description">
+                                <h3>Deskripsi Produk</h3>
+                                <p id="detailProductDescription">Deskripsi produk akan muncul di sini.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 1px; background-color: #e0e0e0; margin: 30px 0;"></div>
+                    <div class="product-specifications">
+                        <h3 class="spec-title">Spesifikasi</h3>
+                        <div class="spec-content">
+                            <p><strong>Kategori:</strong> <span id="specCategory"></span></p>
+                            <p><strong>Status:</strong> <span id="specStatus"></span></p>
+                        </div>
+                    </div>
+                    <div style="height: 1px; background-color: #e0e0e0; margin: 30px 0;"></div>
+                    <div class="store-info">
+                        <h3 class="store-info-title">Tentang Toko</h3>
+                        <div class="store-detail">
+                            <div class="store-detail-label">Toko:</div>
+                            <div class="store-detail-value" id="storeName"></div>
+                        </div>
+                        <div class="store-detail">
+                            <div class="store-detail-label">Rating:</div>
+                            <div class="store-detail-value" id="storeRating"></div>
+                        </div>
+                        <div class="store-detail">
+                            <div class="store-detail-label">Lokasi:</div>
+                            <div class="store-detail-value" id="storeLocation"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-detail-footer">
+                <button class="detail-add-to-cart-btn" onclick="addToCartFromDetail(window.currentProduct)">+ Tambah ke Keranjang</button>
+            </div>
+        </div>
+    </div>
+    <div id="toastNotification" class="toast"></div>
+
+    <script src="script.js"></script>
+    
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9897a88752056034',t:'MTc1OTYxMjE0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document...
